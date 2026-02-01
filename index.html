@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BirPlan – Giriş</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6">
+    <div class="flex justify-center mb-6">
+      <img src="birplan-logo.png" alt="BirPlan Logo" class="h-12" />
+    </div>
+
+    <div class="flex mb-6">
+      <button id="loginTab" class="flex-1 py-2 font-semibold border-b-2 border-blue-500">Giriş Yap</button>
+      <button id="registerTab" class="flex-1 py-2 font-semibold text-gray-500">Kayıt Ol</button>
+    </div>
+
+    <div id="loginForm">
+      <input id="loginUsername" type="text" placeholder="Kullanıcı Adı" class="w-full mb-3 p-3 border rounded-xl" />
+      <input id="loginPassword" type="password" placeholder="Şifre" class="w-full mb-4 p-3 border rounded-xl" />
+      <button onclick="login()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold">Giriş Yap</button>
+      <p id="loginError" class="text-red-500 text-sm mt-3 hidden">Hatalı giriş</p>
+    </div>
+
+    <div id="registerForm" class="hidden">
+      <input id="registerUsername" type="text" placeholder="Kullanıcı Adı" class="w-full mb-3 p-3 border rounded-xl" />
+      <input id="registerPassword" type="password" placeholder="Şifre" class="w-full mb-4 p-3 border rounded-xl" />
+      <button onclick="register()" class="w-full bg-green-600 text-white py-3 rounded-xl font-semibold">Kayıt Ol</button>
+      <p id="registerError" class="text-red-500 text-sm mt-3 hidden">Bu kullanıcı adı zaten var</p>
+    </div>
+  </div>
+
+<script>
+const loginTab = document.getElementById('loginTab');
+const registerTab = document.getElementById('registerTab');
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+
+loginTab.onclick = () => {
+  loginForm.classList.remove('hidden');
+  registerForm.classList.add('hidden');
+};
+
+registerTab.onclick = () => {
+  registerForm.classList.remove('hidden');
+  loginForm.classList.add('hidden');
+};
+
+function getUsers() {
+  return JSON.parse(localStorage.getItem('users')) || [];
+}
+
+function saveUsers(users) {
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
+function register() {
+  const username = registerUsername.value.trim();
+  const password = registerPassword.value;
+  const users = getUsers();
+
+  if (users.find(u => u.username === username)) {
+    registerError.classList.remove('hidden');
+    return;
+  }
+
+  users.push({ id: Date.now(), username, password });
+  saveUsers(users);
+  alert('Kayıt başarılı, giriş yapabilirsiniz');
+}
+
+function login() {
+  const username = loginUsername.value.trim();
+  const password = loginPassword.value;
+  const users = getUsers();
+
+  const user = users.find(u => u.username === username && u.password === password);
+  if (!user) {
+    loginError.classList.remove('hidden');
+    return;
+  }
+
+  localStorage.setItem('currentUser', user.id);
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
