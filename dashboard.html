@@ -1,177 +1,21 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <title>BirPlan – Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<nav class="flex-1 p-4 space-y-2">
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <a href="dashboard.html" class="menu-btn active">Dashboard</a>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bg: '#F4F6FB',
-            sidebar: '#FFFFFF',
-            primary: '#3B82F6',
-            primarySoft: '#EFF6FF',
-            textMain: '#0F172A',
-            textSub: '#475569',
-            textMuted: '#94A3B8',
-          },
-          boxShadow: {
-            soft: '0 10px 30px rgba(0,0,0,0.08)',
-            hover: '0 15px 35px rgba(59,130,246,0.25)'
-          }
-        }
-      }
-    }
-  </script>
-</head>
+  <a href="accounts.html" class="menu-btn">Hesaplar</a>
 
-<body class="bg-bg min-h-screen flex">
+  <a href="budget.html" class="menu-btn">Bütçe</a>
 
-<!-- SIDEBAR -->
-<aside id="sidebar"
-  class="w-64 bg-sidebar shadow-soft flex flex-col transition-all duration-300">
+  <a href="income-expense.html" class="menu-btn">Gelir & Gider</a>
 
-  <!-- LOGO -->
-  <div class="flex items-center gap-3 p-6 border-b">
-    <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xl">
-      B
-    </div>
-    <span class="text-xl font-bold text-textMain">BirPlan</span>
-  </div>
+  <a href="debts.html" class="menu-btn">Borç & Taksitler</a>
 
-  <!-- MENU -->
-  <nav class="flex-1 p-4 space-y-2">
-    <button class="menu-btn active">Dashboard</button>
-    <button class="menu-btn">Hesaplar</button>
-    <button class="menu-btn">Bütçe</button>
-    <button class="menu-btn">Gelir & Gider</button>
-    <button class="menu-btn">Borç & Taksitler</button>
-    <button class="menu-btn">Varlıklar</button>
-    <button class="menu-btn">Önemli Notlar</button>
-    <button class="menu-btn">Vasiyet</button>
-    <button class="menu-btn mt-6">Ayarlar</button>
-  </nav>
+  <a href="assets.html" class="menu-btn">Varlıklar</a>
 
-  <!-- LOGOUT -->
-  <div class="p-4 border-t">
-    <button class="w-full text-left text-red-600 font-semibold hover:bg-red-50 px-4 py-2 rounded-xl">
-      Çıkış Yap
-    </button>
-  </div>
-</aside>
+  <a href="notes.html" class="menu-btn">Önemli Notlar</a>
 
-<!-- MAIN -->
-<main class="flex-1 flex flex-col">
+  <a href="will.html" class="menu-btn">Vasiyet</a>
 
-  <!-- TOP BAR -->
-  <header class="bg-white shadow-soft p-4 flex items-center justify-between">
-    <button onclick="toggleSidebar()"
-      class="bg-primarySoft text-primary px-4 py-2 rounded-xl font-semibold hover:shadow-hover transition">
-      ☰ Menü
-    </button>
+  <a href="settings.html" class="menu-btn mt-6">Ayarlar</a>
 
-    <div class="flex items-center gap-3">
-      <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-        E
-      </div>
-      <span class="font-semibold text-textMain">Emre Sayın</span>
-    </div>
-  </header>
-
-  <!-- CONTENT -->
-  <section class="p-8">
-    <h1 class="text-3xl font-bold text-textMain mb-8">Dashboard</h1>
-
-    <!-- STATS -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-      <div class="card">
-        <p class="card-title">Toplam Bakiye</p>
-        <p class="card-value">₺125.000</p>
-      </div>
-      <div class="card">
-        <p class="card-title">Bu Ay Gelir</p>
-        <p class="card-value text-green-600">₺45.000</p>
-      </div>
-      <div class="card">
-        <p class="card-title">Bu Ay Gider</p>
-        <p class="card-value text-red-600">₺18.500</p>
-      </div>
-    </div>
-
-    <!-- ALT KARTLAR -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="card">
-        <p class="card-title">Hesaplar</p>
-        <p class="text-textMuted text-sm">Henüz hesap eklenmedi</p>
-      </div>
-      <div class="card">
-        <p class="card-title">Uyarılar</p>
-        <p class="text-textMuted text-sm">Yaklaşan uyarı yok</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- COMPONENT STYLES -->
-<style>
-  .menu-btn {
-    width: 100%;
-    text-align: left;
-    padding: 12px 16px;
-    border-radius: 14px;
-    font-weight: 500;
-    color: #475569;
-    transition: all 0.25s;
-  }
-
-  .menu-btn:hover {
-    background: #EFF6FF;
-    color: #2563EB;
-    box-shadow: 0 10px 25px rgba(59,130,246,0.25);
-  }
-
-  .menu-btn.active {
-    background: #3B82F6;
-    color: white;
-    box-shadow: 0 15px 30px rgba(59,130,246,0.45);
-  }
-
-  .card {
-    background: white;
-    padding: 24px;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    transition: transform .2s;
-  }
-
-  .card:hover {
-    transform: translateY(-4px);
-  }
-
-  .card-title {
-    color: #64748B;
-    font-size: 14px;
-  }
-
-  .card-value {
-    font-size: 30px;
-    font-weight: 700;
-    margin-top: 6px;
-    color: #0F172A;
-  }
-</style>
-
-<script>
-  function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('hidden');
-  }
-</script>
-
-</body>
-</html>
+</nav>
