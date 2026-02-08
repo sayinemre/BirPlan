@@ -2,79 +2,154 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BirPlan – Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>BirPlan – Dashboard Tema Önizleme</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0F172A;
+      color: #E5E7EB;
+      display: flex;
+      height: 100vh;
+    }
+
+    /* SOL MENÜ */
+    .sidebar {
+      width: 260px;
+      background: #020617;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #3B82F6;
+      margin-bottom: 32px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #3B82F6;
+    }
+
+    .menu a {
+      display: block;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border-radius: 10px;
+      color: #E5E7EB;
+      text-decoration: none;
+    }
+
+    .menu a.active {
+      background: rgba(59,130,246,0.15);
+      border-left: 4px solid #3B82F6;
+    }
+
+    .menu a:hover {
+      background: rgba(56,189,248,0.15);
+    }
+
+    /* ANA ALAN */
+    .main {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .title {
+      font-size: 26px;
+      margin-bottom: 24px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: #111827;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      color: #9CA3AF;
+    }
+
+    .card .value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #38BDF8;
+    }
+  </style>
 </head>
+<body>
 
-<body class="bg-gray-100 min-h-screen">
+  <aside class="sidebar">
+    <div class="logo">BirPlan</div>
 
-<script>
-  // Güvenlik
-  if (!localStorage.getItem("currentUser")) {
-    window.location.href = "index.html";
-  }
-
-  function toggleMenu() {
-    document.getElementById("sidebar").classList.toggle("-translate-x-full");
-  }
-
-  function logout() {
-    localStorage.removeItem("currentUser");
-    window.location.href = "index.html";
-  }
-</script>
-
-<!-- TOP BAR -->
-<header class="bg-white shadow p-4 flex justify-between items-center">
-  <div class="flex items-center gap-3">
-    <button onclick="toggleMenu()" class="text-2xl">☰</button>
-    <img src="birplan-logo.png" class="h-8" />
-    <span class="font-semibold text-lg">BirPlan</span>
-  </div>
-  <button onclick="logout()" class="text-red-600 font-semibold text-sm">Çıkış Yap</button>
-</header>
-
-<!-- SIDEBAR -->
-<aside id="sidebar"
-  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50">
-
-  <div class="p-4 border-b flex justify-between items-center">
-    <span class="font-bold">Menü</span>
-    <button onclick="toggleMenu()">✕</button>
-  </div>
-
-  <nav class="p-4 flex flex-col gap-3 text-sm font-medium">
-    <a href="#" class="hover:text-blue-600">Hesaplar</a>
-    <a href="#" class="hover:text-blue-600">Bütçe</a>
-    <a href="#" class="hover:text-blue-600">Gelir / Gider</a>
-    <a href="#" class="hover:text-blue-600">Borç ve Taksitler</a>
-    <a href="#" class="hover:text-blue-600">Varlıklar</a>
-    <a href="#" class="hover:text-blue-600">Önemli Notlar</a>
-    <a href="#" class="hover:text-blue-600">Vasiyet</a>
-    <a href="#" class="hover:text-blue-600">Ayarlar</a>
-  </nav>
-</aside>
-
-<!-- MAIN -->
-<main class="p-6 max-w-6xl mx-auto">
-  <h1 class="text-2xl font-bold mb-6">Hoş geldin 👋</h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="bg-white p-5 rounded-2xl shadow">
-      <p class="text-gray-500">Toplam Bakiye</p>
-      <p class="text-2xl font-bold">₺0</p>
+    <div class="profile">
+      <div class="avatar"></div>
+      <div>ES Kullanıcı</div>
     </div>
-    <div class="bg-white p-5 rounded-2xl shadow">
-      <p class="text-gray-500">Bu Ay Gelir</p>
-      <p class="text-2xl font-bold text-green-600">₺0</p>
-    </div>
-    <div class="bg-white p-5 rounded-2xl shadow">
-      <p class="text-gray-500">Bu Ay Gider</p>
-      <p class="text-2xl font-bold text-red-600">₺0</p>
-    </div>
-  </div>
-</main>
+
+    <nav class="menu">
+      <a class="active" href="#">Dashboard</a>
+      <a href="#">Hesaplar</a>
+      <a href="#">Bütçe</a>
+      <a href="#">Gelir / Gider</a>
+      <a href="#">Borç & Taksit</a>
+      <a href="#">Varlıklar</a>
+      <a href="#">Ayarlar</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <div class="title">Genel Durum</div>
+
+    <section class="cards">
+      <div class="card">
+        <h3>Toplam Bakiye</h3>
+        <div class="value">₺124.500</div>
+      </div>
+
+      <div class="card">
+        <h3>Bu Ay Gelir</h3>
+        <div class="value">₺58.000</div>
+      </div>
+
+      <div class="card">
+        <h3>Bu Ay Gider</h3>
+        <div class="value">₺32.400</div>
+      </div>
+
+      <div class="card">
+        <h3>Net Durum</h3>
+        <div class="value">₺25.600</div>
+      </div>
+    </section>
+  </main>
 
 </body>
 </html>
+
