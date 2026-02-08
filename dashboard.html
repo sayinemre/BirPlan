@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BirPlan – Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<script>
+  // Güvenlik
+  if (!localStorage.getItem("currentUser")) {
+    window.location.href = "index.html";
+  }
+
+  function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("-translate-x-full");
+  }
+
+  function logout() {
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+  }
+</script>
+
+<!-- TOP BAR -->
+<header class="bg-white shadow p-4 flex justify-between items-center">
+  <div class="flex items-center gap-3">
+    <button onclick="toggleMenu()" class="text-2xl">☰</button>
+    <img src="birplan-logo.png" class="h-8" />
+    <span class="font-semibold text-lg">BirPlan</span>
+  </div>
+  <button onclick="logout()" class="text-red-600 font-semibold text-sm">Çıkış Yap</button>
+</header>
+
+<!-- SIDEBAR -->
+<aside id="sidebar"
+  class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 z-50">
+
+  <div class="p-4 border-b flex justify-between items-center">
+    <span class="font-bold">Menü</span>
+    <button onclick="toggleMenu()">✕</button>
+  </div>
+
+  <nav class="p-4 flex flex-col gap-3 text-sm font-medium">
+    <a href="#" class="hover:text-blue-600">Hesaplar</a>
+    <a href="#" class="hover:text-blue-600">Bütçe</a>
+    <a href="#" class="hover:text-blue-600">Gelir / Gider</a>
+    <a href="#" class="hover:text-blue-600">Borç ve Taksitler</a>
+    <a href="#" class="hover:text-blue-600">Varlıklar</a>
+    <a href="#" class="hover:text-blue-600">Önemli Notlar</a>
+    <a href="#" class="hover:text-blue-600">Vasiyet</a>
+    <a href="#" class="hover:text-blue-600">Ayarlar</a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="p-6 max-w-6xl mx-auto">
+  <h1 class="text-2xl font-bold mb-6">Hoş geldin 👋</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <p class="text-gray-500">Toplam Bakiye</p>
+      <p class="text-2xl font-bold">₺0</p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <p class="text-gray-500">Bu Ay Gelir</p>
+      <p class="text-2xl font-bold text-green-600">₺0</p>
+    </div>
+    <div class="bg-white p-5 rounded-2xl shadow">
+      <p class="text-gray-500">Bu Ay Gider</p>
+      <p class="text-2xl font-bold text-red-600">₺0</p>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
