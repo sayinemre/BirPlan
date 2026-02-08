@@ -1,155 +1,90 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <title>BirPlan – Dashboard Tema Önizleme</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Segoe UI", system-ui, sans-serif;
-    }
+  <meta charset="UTF-8">
+  <title>BirPlan – Tema Önizleme</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    body {
-      margin: 0;
-      background: #0F172A;
-      color: #E5E7EB;
-      display: flex;
-      height: 100vh;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bg: '#F5F7FA',
+            primary: '#3B82F6',
+            primaryDark: '#2563EB',
+            textMain: '#111827',
+            textSub: '#374151',
+            textMuted: '#6B7280',
+          },
+          boxShadow: {
+            soft: '0 10px 25px rgba(0,0,0,0.08)'
+          }
+        }
+      }
     }
-
-    /* SOL MENÜ */
-    .sidebar {
-      width: 260px;
-      background: #020617;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: #3B82F6;
-      margin-bottom: 32px;
-    }
-
-    .profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #3B82F6;
-    }
-
-    .menu a {
-      display: block;
-      padding: 12px 14px;
-      margin-bottom: 8px;
-      border-radius: 10px;
-      color: #E5E7EB;
-      text-decoration: none;
-    }
-
-    .menu a.active {
-      background: rgba(59,130,246,0.15);
-      border-left: 4px solid #3B82F6;
-    }
-
-    .menu a:hover {
-      background: rgba(56,189,248,0.15);
-    }
-
-    /* ANA ALAN */
-    .main {
-      flex: 1;
-      padding: 32px;
-      overflow-y: auto;
-    }
-
-    .title {
-      font-size: 26px;
-      margin-bottom: 24px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: #111827;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-    }
-
-    .card h3 {
-      margin: 0 0 12px;
-      font-size: 16px;
-      color: #9CA3AF;
-    }
-
-    .card .value {
-      font-size: 28px;
-      font-weight: bold;
-      color: #38BDF8;
-    }
-  </style>
+  </script>
 </head>
-<body>
 
-  <aside class="sidebar">
-    <div class="logo">BirPlan</div>
+<body class="bg-bg min-h-screen flex">
 
-    <div class="profile">
-      <div class="avatar"></div>
-      <div>ES Kullanıcı</div>
+<!-- SOL MENÜ -->
+<aside class="w-64 bg-white shadow-soft p-6 flex flex-col">
+  <div class="flex items-center gap-3 mb-10">
+    <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
+      B
+    </div>
+    <span class="text-xl font-bold text-textMain">BirPlan</span>
+  </div>
+
+  <nav class="space-y-4 text-textSub font-medium">
+    <div class="text-primary font-semibold">Dashboard</div>
+    <div>Hesaplar</div>
+    <div>Bütçe</div>
+    <div>Gelir & Gider</div>
+    <div>Borç & Taksit</div>
+    <div>Varlıklar</div>
+    <div>Önemli Notlar</div>
+    <div>Vasiyet</div>
+    <div class="mt-6 text-sm text-textMuted">Ayarlar</div>
+  </nav>
+</aside>
+
+<!-- ANA ALAN -->
+<main class="flex-1 p-10">
+  <h1 class="text-3xl font-bold text-textMain mb-8">Dashboard</h1>
+
+  <!-- KARTLAR -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white rounded-2xl p-6 shadow-soft">
+      <p class="text-textMuted">Toplam Bakiye</p>
+      <p class="text-3xl font-bold text-textMain mt-2">₺ 125.000</p>
     </div>
 
-    <nav class="menu">
-      <a class="active" href="#">Dashboard</a>
-      <a href="#">Hesaplar</a>
-      <a href="#">Bütçe</a>
-      <a href="#">Gelir / Gider</a>
-      <a href="#">Borç & Taksit</a>
-      <a href="#">Varlıklar</a>
-      <a href="#">Ayarlar</a>
-    </nav>
-  </aside>
+    <div class="bg-white rounded-2xl p-6 shadow-soft">
+      <p class="text-textMuted">Bu Ay Gelir</p>
+      <p class="text-3xl font-bold text-green-600 mt-2">₺ 45.000</p>
+    </div>
 
-  <main class="main">
-    <div class="title">Genel Durum</div>
+    <div class="bg-white rounded-2xl p-6 shadow-soft">
+      <p class="text-textMuted">Bu Ay Gider</p>
+      <p class="text-3xl font-bold text-red-600 mt-2">₺ 18.500</p>
+    </div>
+  </div>
 
-    <section class="cards">
-      <div class="card">
-        <h3>Toplam Bakiye</h3>
-        <div class="value">₺124.500</div>
-      </div>
+  <!-- ALT KARTLAR -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="bg-white rounded-2xl p-6 shadow-soft">
+      <h2 class="font-semibold text-textMain mb-3">Hesaplar</h2>
+      <p class="text-textMuted text-sm">Henüz hesap eklenmedi</p>
+    </div>
 
-      <div class="card">
-        <h3>Bu Ay Gelir</h3>
-        <div class="value">₺58.000</div>
-      </div>
-
-      <div class="card">
-        <h3>Bu Ay Gider</h3>
-        <div class="value">₺32.400</div>
-      </div>
-
-      <div class="card">
-        <h3>Net Durum</h3>
-        <div class="value">₺25.600</div>
-      </div>
-    </section>
-  </main>
+    <div class="bg-white rounded-2xl p-6 shadow-soft">
+      <h2 class="font-semibold text-textMain mb-3">Uyarılar</h2>
+      <p class="text-textMuted text-sm">Yaklaşan uyarı yok</p>
+    </div>
+  </div>
+</main>
 
 </body>
 </html>
-
