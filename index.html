@@ -5,88 +5,285 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BirPlan – Giriş</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light" />
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-  <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6">
-    <div class="flex justify-center mb-6">
-      <img src="birplan-logo.png" alt="BirPlan Logo" class="h-12" />
-    </div>
-
-    <div class="flex mb-6">
-      <button id="loginTab" class="flex-1 py-2 font-semibold border-b-2 border-blue-500">Giriş Yap</button>
-      <button id="registerTab" class="flex-1 py-2 font-semibold text-gray-500">Kayıt Ol</button>
-    </div>
-
-    <div id="loginForm">
-      <input id="loginUsername" type="text" placeholder="Kullanıcı Adı" class="w-full mb-3 p-3 border rounded-xl" />
-      <input id="loginPassword" type="password" placeholder="Şifre" class="w-full mb-4 p-3 border rounded-xl" />
-      <button onclick="login()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold">Giriş Yap</button>
-      <p id="loginError" class="text-red-500 text-sm mt-3 hidden">Hatalı giriş</p>
-    </div>
-
-    <div id="registerForm" class="hidden">
-      <input id="registerUsername" type="text" placeholder="Kullanıcı Adı" class="w-full mb-3 p-3 border rounded-xl" />
-      <input id="registerPassword" type="password" placeholder="Şifre" class="w-full mb-4 p-3 border rounded-xl" />
-      <button onclick="register()" class="w-full bg-green-600 text-white py-3 rounded-xl font-semibold">Kayıt Ol</button>
-      <p id="registerError" class="text-red-500 text-sm mt-3 hidden">Bu kullanıcı adı zaten var</p>
-    </div>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <!-- Background glow -->
+  <div class="pointer-events-none fixed inset-0">
+    <div class="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl"></div>
+    <div class="absolute top-1/3 -right-24 h-72 w-72 rounded-full bg-cyan-400/15 blur-3xl"></div>
+    <div class="absolute -bottom-24 left-1/3 h-72 w-72 rounded-full bg-sky-400/10 blur-3xl"></div>
   </div>
 
-<script>
-const loginTab = document.getElementById('loginTab');
-const registerTab = document.getElementById('registerTab');
-const loginForm = document.getElementById('loginForm');
-const registerForm = document.getElementById('registerForm');
+  <main class="relative mx-auto flex min-h-screen max-w-6xl items-center px-4 py-10">
+    <div class="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
+      <!-- Left: brand panel -->
+      <section class="hidden lg:flex">
+        <div class="relative w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-10 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+          <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-cyan-400/5 to-transparent"></div>
+          <div class="relative">
+            <div class="flex items-center gap-3">
+              <img src="./birplan-logo.png" alt="BirPlan" class="h-10 w-auto drop-shadow" />
+              <div>
+                <h1 class="text-2xl font-semibold tracking-tight">BirPlan</h1>
+                <p class="text-sm text-slate-300">Gelir • Gider • Bütçe • Varlık Takibi</p>
+              </div>
+            </div>
 
-loginTab.onclick = () => {
-  loginForm.classList.remove('hidden');
-  registerForm.classList.add('hidden');
-};
+            <div class="mt-10 space-y-4">
+              <div class="rounded-2xl border border-white/10 bg-white/5 p-5 shadow-sm">
+                <p class="text-sm text-slate-200">
+                  Aylık bütçeni planla, harcamalarını kategori bazında takip et ve altın/döviz/kripto varlıklarının değerini tek ekranda gör.
+                </p>
+              </div>
 
-registerTab.onclick = () => {
-  registerForm.classList.remove('hidden');
-  loginForm.classList.add('hidden');
-};
+              <ul class="space-y-3 text-sm text-slate-200">
+                <li class="flex gap-3"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-400"></span>Hızlı gelir/gider kaydı</li>
+                <li class="flex gap-3"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-400"></span>Aylık bütçe hedefleri ve gerçekleşen</li>
+                <li class="flex gap-3"><span class="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-400"></span>Varlık ekle + güncel değerleme (yakında)</li>
+              </ul>
 
-function getUsers() {
-  return JSON.parse(localStorage.getItem('users')) || [];
-}
+              <div class="mt-8 rounded-2xl border border-white/10 bg-gradient-to-br from-white/10 to-white/5 p-5">
+                <p class="text-xs text-slate-300">
+                  Not: Şu an veriler tarayıcında saklanır (localStorage). Daha sonra istersen buluta (Supabase/Firebase) taşırız.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-function saveUsers(users) {
-  localStorage.setItem('users', JSON.stringify(users));
-}
+      <!-- Right: auth card -->
+      <section class="flex items-center">
+        <div class="w-full">
+          <div class="mx-auto w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:p-8">
+            <div class="flex items-center justify-center gap-3">
+              <img src="./birplan-logo.png" alt="BirPlan" class="h-10 w-auto" />
+            </div>
 
-function register() {
-  const username = registerUsername.value.trim();
-  const password = registerPassword.value;
-  const users = getUsers();
+            <h2 class="mt-5 text-center text-xl font-semibold tracking-tight">Hesabına giriş yap</h2>
+            <p class="mt-1 text-center text-sm text-slate-300">Bütçeni ve varlıklarını yönetmeye başla.</p>
 
-  if (users.find(u => u.username === username)) {
-    registerError.classList.remove('hidden');
-    return;
-  }
+            <!-- Tabs (shadowed menu) -->
+            <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-1 shadow-inner">
+              <div class="grid grid-cols-2 gap-1">
+                <button id="loginTab" class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition">Giriş</button>
+                <button id="registerTab" class="tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition">Kayıt</button>
+              </div>
+            </div>
 
-  users.push({ id: Date.now(), username, password });
-  saveUsers(users);
-  alert('Kayıt başarılı, giriş yapabilirsiniz');
-}
+            <!-- Forms -->
+            <div class="mt-6">
+              <!-- Login -->
+              <div id="loginForm" class="space-y-4">
+                <div>
+                  <label class="mb-1 block text-sm text-slate-200" for="loginUsername">Kullanıcı adı</label>
+                  <input id="loginUsername" type="text" autocomplete="username" placeholder="ornek_kullanici"
+                    class="w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none ring-0 transition focus:border-emerald-400/50 focus:ring-4 focus:ring-emerald-400/10" />
+                </div>
 
-function login() {
-  const username = loginUsername.value.trim();
-  const password = loginPassword.value;
-  const users = getUsers();
+                <div>
+                  <label class="mb-1 block text-sm text-slate-200" for="loginPassword">Şifre</label>
+                  <div class="relative">
+                    <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••"
+                      class="w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 pr-12 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-emerald-400/50 focus:ring-4 focus:ring-emerald-400/10" />
+                    <button type="button" id="toggleLoginPw"
+                      class="absolute inset-y-0 right-2 my-auto rounded-xl px-3 text-xs text-slate-300 hover:text-slate-100">Göster</button>
+                  </div>
+                </div>
 
-  const user = users.find(u => u.username === username && u.password === password);
-  if (!user) {
-    loginError.classList.remove('hidden');
-    return;
-  }
+                <div class="flex items-center justify-between">
+                  <label class="flex items-center gap-2 text-sm text-slate-300">
+                    <input id="rememberMe" type="checkbox" class="h-4 w-4 rounded border-white/20 bg-white/10 text-emerald-500" />
+                    Beni hatırla
+                  </label>
+                  <button type="button" class="text-sm text-slate-300 hover:text-slate-100" onclick="demoFill()">Demo</button>
+                </div>
 
-  localStorage.setItem('currentUser', user.id);
-  window.location.href = "dashboard.html";
-}
-</script>
+                <button id="loginBtn" onclick="login()"
+                  class="w-full rounded-2xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950 shadow-lg shadow-emerald-500/20 transition hover:bg-emerald-400 active:translate-y-[1px]">
+                  Giriş Yap
+                </button>
 
+                <p id="loginError" class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"></p>
+              </div>
+
+              <!-- Register -->
+              <div id="registerForm" class="hidden space-y-4">
+                <div>
+                  <label class="mb-1 block text-sm text-slate-200" for="registerUsername">Kullanıcı adı</label>
+                  <input id="registerUsername" type="text" autocomplete="username" placeholder="ornek_kullanici"
+                    class="w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/10" />
+                </div>
+
+                <div>
+                  <label class="mb-1 block text-sm text-slate-200" for="registerPassword">Şifre</label>
+                  <div class="relative">
+                    <input id="registerPassword" type="password" autocomplete="new-password" placeholder="En az 6 karakter"
+                      class="w-full rounded-2xl border border-white/10 bg-slate-950/40 px-4 py-3 pr-12 text-slate-100 placeholder:text-slate-500 outline-none transition focus:border-cyan-400/50 focus:ring-4 focus:ring-cyan-400/10" />
+                    <button type="button" id="toggleRegisterPw"
+                      class="absolute inset-y-0 right-2 my-auto rounded-xl px-3 text-xs text-slate-300 hover:text-slate-100">Göster</button>
+                  </div>
+                </div>
+
+                <button id="registerBtn" onclick="register()"
+                  class="w-full rounded-2xl bg-cyan-400 px-4 py-3 font-semibold text-slate-950 shadow-lg shadow-cyan-400/20 transition hover:bg-cyan-300 active:translate-y-[1px]">
+                  Kayıt Ol
+                </button>
+
+                <p id="registerError" class="hidden rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-sm text-rose-200"></p>
+
+                <p class="text-xs text-slate-400">
+                  Kayıt olarak, verilerin tarayıcında saklandığını kabul etmiş olursun.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="mx-auto mt-6 max-w-md text-center text-xs text-slate-400">
+            © <span id="year"></span> BirPlan • Basit, hızlı ve göz yormayan bütçe takibi.
+          </p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    const loginError = document.getElementById('loginError');
+    const registerError = document.getElementById('registerError');
+
+    const toggleLoginPw = document.getElementById('toggleLoginPw');
+    const toggleRegisterPw = document.getElementById('toggleRegisterPw');
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function setActiveTab(which) {
+      const active = "bg-white/10 text-slate-100 shadow-[0_10px_25px_-15px_rgba(0,0,0,0.8)]";
+      const idle = "text-slate-300 hover:text-slate-100";
+
+      if (which === 'login') {
+        loginTab.className = `tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition ${active}`;
+        registerTab.className = `tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition ${idle}`;
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+      } else {
+        registerTab.className = `tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition ${active}`;
+        loginTab.className = `tab-btn rounded-xl px-4 py-2 text-sm font-semibold transition ${idle}`;
+        registerForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      }
+
+      clearErrors();
+    }
+
+    function clearErrors() {
+      loginError.classList.add('hidden');
+      registerError.classList.add('hidden');
+      loginError.textContent = '';
+      registerError.textContent = '';
+    }
+
+    loginTab.addEventListener('click', () => setActiveTab('login'));
+    registerTab.addEventListener('click', () => setActiveTab('register'));
+    setActiveTab('login');
+
+    function togglePassword(inputId, btnEl) {
+      const input = document.getElementById(inputId);
+      const isPw = input.type === 'password';
+      input.type = isPw ? 'text' : 'password';
+      btnEl.textContent = isPw ? 'Gizle' : 'Göster';
+    }
+
+    toggleLoginPw.addEventListener('click', () => togglePassword('loginPassword', toggleLoginPw));
+    toggleRegisterPw.addEventListener('click', () => togglePassword('registerPassword', toggleRegisterPw));
+
+    ['loginUsername','loginPassword'].forEach(id => {
+      document.getElementById(id).addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') login();
+      });
+    });
+    ['registerUsername','registerPassword'].forEach(id => {
+      document.getElementById(id).addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') register();
+      });
+    });
+
+    function getUsers() {
+      try { return JSON.parse(localStorage.getItem('users')) || []; }
+      catch { return []; }
+    }
+    function saveUsers(users) {
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    function demoFill() {
+      document.getElementById('loginUsername').value = 'demo';
+      document.getElementById('loginPassword').value = 'demo123';
+    }
+
+    function register() {
+      clearErrors();
+      const username = document.getElementById('registerUsername').value.trim();
+      const password = document.getElementById('registerPassword').value;
+
+      if (!username || username.length < 3) {
+        registerError.textContent = 'Kullanıcı adı en az 3 karakter olmalı.';
+        registerError.classList.remove('hidden');
+        return;
+      }
+
+      if (!password || password.length < 6) {
+        registerError.textContent = 'Şifre en az 6 karakter olmalı.';
+        registerError.classList.remove('hidden');
+        return;
+      }
+
+      const users = getUsers();
+      if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+        registerError.textContent = 'Bu kullanıcı adı zaten var.';
+        registerError.classList.remove('hidden');
+        return;
+      }
+
+      const user = { id: Date.now(), username, password };
+      users.push(user);
+      saveUsers(users);
+
+      document.getElementById('loginUsername').value = username;
+      document.getElementById('loginPassword').value = '';
+      setActiveTab('login');
+
+      loginError.textContent = 'Kayıt başarılı. Şimdi giriş yapabilirsin.';
+      loginError.classList.remove('hidden');
+      loginError.classList.remove('border-rose-500/20','bg-rose-500/10','text-rose-200');
+      loginError.classList.add('border-emerald-500/20','bg-emerald-500/10','text-emerald-100');
+    }
+
+    function login() {
+      clearErrors();
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      const users = getUsers();
+      const user = users.find(u => u.username === username && u.password === password);
+
+      if (!user) {
+        loginError.textContent = 'Kullanıcı adı veya şifre hatalı.';
+        loginError.classList.remove('hidden');
+        loginError.classList.remove('border-emerald-500/20','bg-emerald-500/10','text-emerald-100');
+        loginError.classList.add('border-rose-500/20','bg-rose-500/10','text-rose-200');
+        return;
+      }
+
+      localStorage.setItem('currentUser', JSON.stringify({ id: user.id, username: user.username }));
+      window.location.href = './dashboard.html';
+    }
+  </script>
 </body>
 </html>
