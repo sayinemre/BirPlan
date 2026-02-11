@@ -1,41 +1,64 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BirPlan – Hesaplar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
+const user = JSON.parse(localStorage.getItem("currentUser"));
+const storageKey = `accounts_${user.id}`;
 
-<script>
-  const userId = localStorage.getItem("currentUser");
-  if (!userId) {
-    window.location.href = "index.html";
+function getAccounts() {
+  return JSON.parse(localStorage.getItem(storageKey)) || [];
+}
+
+function saveAccounts(accounts) {
+  localStorage.setItem(storageKey, JSON.stringify(accounts));
+}
+
+function renderAccounts() {
+  const list = document.getElementById("accountsList");
+  const accounts = getAccounts();
+
+  if (accounts.length === 0) {
+    list.innerHTML = `<p class="text-slate-400 text-sm">Henüz hesap eklenmedi.</p>`;
+    return;
   }
-</script>
 
-<header class="bg-white shadow px-6 py-4 flex justify-between items-center">
-  <div class="flex items-center gap-3">
-    <img src="birplan-logo.png" class="h-8" />
-    <span class="font-bold text-xl">BirPlan</span>
-  </div>
-  <a href="dashboard.html" class="text-blue-600 font-semibold">← Dashboard</a>
-</header>
+  list.innerHTML = accounts.map(acc => `
+    <div class="flex justify-between items-center bg-slate-900/40 p-4 rounded-2xl">
+      <div>
+        <p class="font-semibold">${acc.name}</p>
+        <p class="text-sm text-slate-400">${acc.balance.toLocaleString()} ₺</p>
+      </div>
+      <button onclick="deleteAccount(${acc.id})"
+        class="text-red-400 text-sm hover:text-red-300">
+        Sil
+      </button>
+    </div>
+  `).join("");
+}
 
-<main class="p-6">
-  <h1 class="text-2xl font-bold mb-4">Hesaplar</h1>
+function addAccount() {
+  const name = document.getElementById("accountName").value.trim();
+  const balance = parseFloat(document.getElementById("accountBalance").value);
 
-  <div class="bg-white p-4 rounded-xl shadow mb-4">
-    <h2 class="font-semibold mb-2">Nakit Hesap</h2>
-    <p>Bakiye: ₺0</p>
-  </div>
+  if (!name || isNaN(balance)) {
+    alert("Lütfen tüm alanları doldurun.");
+    return;
+  }
 
-  <div class="bg-white p-4 rounded-xl shadow">
-    <h2 class="font-semibold mb-2">Kredi Kartları</h2>
-    <p>Henüz kart eklenmedi</p>
-  </div>
-</main>
+  const accounts = getAccounts();
+  accounts.push({
+    id: Date.now(),
+    name,
+    balance
+  });
 
-</body>
-</html>
+  saveAccounts(accounts);
+  renderAccounts();
+
+  document.getElementById("accountName").value = "";
+  document.getElementById("accountBalance").value = "";
+}
+
+function deleteAccount(id) {
+  const accounts = getAccounts().filter(acc => acc.id !== id);
+  saveAccounts(accounts);
+  renderAccounts();
+}
+
+renderAccounts();
